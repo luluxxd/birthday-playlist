@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Playlist</title>
+
+<style>
+:root {
+  --bg: #10090d;
+  --wine: #642b3a;
+  --wine-dark: #321923;
+  --wine-button: #8f4354;
+  --wine-light: #c17a87;
+  --text: #f3e9e9;
+  --muted: #c4aeb2;
+  --line: #58303a;
+  --input: #10090d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 35px 16px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 50% 0%, #642b3a 0%, transparent 48%),
+    radial-gradient(ellipse at 100% 55%, #321923 0%, transparent 48%),
+    linear-gradient(145deg, #10090d 0%, #1b0d13 48%, #0b090c 100%);
+}
+
+.container {
+  width: 100%;
+  max-width: 680px;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  margin: 25px 0 35px;
+}
+
+.eyebrow {
+  color: var(--wine-light);
+  letter-spacing: 5px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(38px, 8vw, 62px);
+  font-weight: normal;
+  margin: 14px 0 10px;
+  letter-spacing: 1px;
+  color: #f5e8e9;
+  text-shadow: 0 3px 25px #8f435455;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 15px;
+  font-style: italic;
+  margin-top: 14px;
+}
+
+.ornament {
+  color: var(--wine-light);
+  letter-spacing: 9px;
+  font-size: 17px;
+  margin: 18px 0;
+}
+
+.panel {
+  background: #211219 !important;
+  background-image: none !important;
+  border: 1px solid #58303a;
+  border-radius: 15px;
+  padding: 18px 27px 27px;
+  margin-bottom: 22px;
+  box-shadow: 0 12px 35px #00000045;
+}
+
+h2 {
+  font-size: 23px;
+  font-weight: normal;
+  margin: 0 0 5px;
+  color: #f0dfe2;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  color: #d7bfc3;
+  font-size: 13px;
+  margin: 12px 0 6px;
+  letter-spacing: .4px;
+}
+
+input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #60323e;
+  border-radius: 8px;
+  background: var(--input);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border .2s, box-shadow .2s;
+}
+
+input:focus {
+  border-color: var(--wine-light);
+  box-shadow: 0 0 0 2px #c17a8720;
+}
+
+input::placeholder {
+  color: #806b72;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 23px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(110deg, #8f4354, #c17a87);
+  color: #fff4f3;
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: .7px;
+  cursor: pointer;
+  transition: opacity .2s, transform .2s;
+}
+
+button:hover {
+  opacity: .9;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: wait;
+  transform: none;
+}
+
+.status {
+  min-height: 18px;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.count {
+  color: var(--wine-light);
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.song-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.song {
+  padding: 15px 16px;
+  border: 1px solid #59313c;
+  border-radius: 9px;
+  background: #170e13;
+}
+
+.song-title {
+  color: #f4e6e8;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.song-artist {
+  color: #c4aeb2;
+  font-size: 13px;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+
+.song-guest {
+  color: #bd7e8c;
+  font-size: 12px;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.empty {
+  color: #a58e94;
+  text-align: center;
+  padding: 25px 10px;
+  font-size: 14px;
+  font-style: italic;
+  border: 1px dashed #59313c;
+  border-radius: 9px;
+}
+
+footer {
+  text-align: center;
+  margin: 30px 0 10px;
+  color: #8e777e;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 20px 13px;
+  }
+
+  .panel {
+    padding: 18px 17px 22px;
+  }
+
+  header {
+    margin-top: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <div class="eyebrow">A NIGHT TO REMEMBER</div>
+  <h1>Birthday Playlist</h1>
+  <div class="ornament">✦ ♫ ✦</div>
+  <p class="subtitle">
+    Tengo six casi seven años y no sé nada de fiestas :(
+  </p>
+</header>
+
+<section class="panel">
+  <h2>Leave your song</h2>
+  <p class="description">
+    Help me create the soundtrack of the night.
+    Add your favorite songs and let everyone discover them.
+  </p>
+
+  <form id="songForm">
+    <label for="guest">Your name or nickname</label>
+    <input id="guest" type="text" maxlength="40"
+      placeholder="Who are you?" required>
+
+    <label for="song">Song title</label>
+    <input id="song" type="text" maxlength="100"
+      placeholder="What song should be here?" required>
+
+    <label for="artist">Artist (optional)</label>
+    <input id="artist" type="text" maxlength="80"
+      placeholder="Who sings it?">
+
+    <button id="submitButton" type="submit">
+      Add to the playlist ♫
+    </button>
+
+    <div class="status" id="status" role="status">
+      Connecting to the playlist...
+    </div>
+  </form>
+</section>
+
+<section class="panel">
+  <div class="list-header">
+    <h2>The playlist</h2>
+    <span class="count" id="songCount">0 SONGS</span>
+  </div>
+
+  <div class="song-list" id="songList">
+    <div class="empty">
+      The playlist is waiting for its first song...
+    </div>
+  </div>
+</section>
+
+<footer>
+  MADE WITH ♡ FOR A NIGHT TO REMEMBER
+</footer>
+
+</div>
+
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+import {
+  getAuth,
+  signInAnonymously
+} from
+  "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp
+} from
+  "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+// CONFIGURACIÓN DE FIREBASE
+const firebaseConfig = {
+  apiKey: "AIzaSyCgyajzpr-SamRoov29szuy4ArXR5nEPts",
+  authDomain: "bd-playlist.firebaseapp.com",
+  projectId: "bd-playlist",
+  storageBucket: "bd-playlist.firebasestorage.app",
+  messagingSenderId: "758454645943",
+  appId: "1:758454645943:web:912fe24dbbd6ae2ee00932"
+};
+
+// ELEMENTOS HTML
+const form = document.getElementById("songForm");
+const guestInput = document.getElementById("guest");
+const songInput = document.getElementById("song");
+const artistInput = document.getElementById("artist");
+const status = document.getElementById("status");
+const submitButton = document.getElementById("submitButton");
+const songList = document.getElementById("songList");
+const songCount = document.getElementById("songCount");
+
+// CONEXIÓN
+try {
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  await signInAnonymously(auth);
+
+  status.textContent = "Connected! Add your song ♡";
+
+  const songsRef = collection(db, "songs");
+
+  const songsQuery = query(
+    songsRef,
+    orderBy("createdAt", "desc")
+  );
+
+  // MOSTRAR CANCIONES
+  onSnapshot(songsQuery, (snapshot) => {
+    songList.replaceChildren();
+
+    const total = snapshot.size;
+
+    songCount.textContent =
+      `${total} ${total === 1 ? "SONG" : "SONGS"}`;
+
+    if (total === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent =
+        "The playlist is waiting for its first song...";
+
+      songList.appendChild(empty);
+      return;
+    }
+
+    snapshot.forEach((documentSnapshot) => {
+      const data = documentSnapshot.data();
+
+      const card = document.createElement("article");
+      card.className = "song";
+
+      const title = document.createElement("div");
+      title.className = "song-title";
+      title.textContent = data.song || "Untitled";
+
+      const artist = document.createElement("div");
+      artist.className = "song-artist";
+      artist.textContent =
+        data.artist || "Artist not specified";
+
+      const guest = document.createElement("div");
+      guest.className = "song-guest";
+      guest.textContent =
+        `Added by ${data.guest || "Someone"}`;
+
+      card.append(title, artist, guest);
+      songList.appendChild(card);
+    });
+
+  }, (error) => {
+    console.error("Playlist error:", error);
+
+    status.textContent =
+      "Couldn't load the playlist. Check your Firebase settings.";
+  });
+
+  // AGREGAR CANCIONES
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const guest = guestInput.value.trim();
+    const song = songInput.value.trim();
+    const artist = artistInput.value.trim();
+
+    if (!guest || !song) {
+      status.textContent =
+        "Please enter your name and a song title.";
+      return;
+    }
+
+    submitButton.disabled = true;
+    status.textContent = "Adding your song...";
+
+    try {
+      await addDoc(songsRef, {
+        guest,
+        song,
+        artist,
+        createdAt: serverTimestamp()
+      });
+
+      songInput.value = "";
+      artistInput.value = "";
+
+      status.textContent =
+        "Your song has been added! ♡";
+
+    } catch (error) {
+      console.error("Save error:", error);
+
+      status.textContent =
+        "Something went wrong. Please try again.";
+
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+
+} catch (error) {
+  console.error("Firebase connection error:", error);
+
+  status.textContent =
+    "Connection failed. Check Firebase Authentication and Firestore.";
+
+  submitButton.disabled = true;
+}
+</script>
+
